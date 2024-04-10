@@ -31,7 +31,7 @@ export const unlikePost= async(req,res)=>{
         const {post,like}=req.body;
         const deletedLike = await Like.findOneAndDelete({post:post,_id:like});
 
-        const updatedPost =await Post.findByIdAndDelete(post,{$pull:{likes:deletedLike._id}},{new:true});
+        const updatedPost =await Post.findByIdAndUpdate(post,{$pull:{likes:deletedLike._id}},{new:true});
         res.status(200).json({
             post:updatedPost,
         })
